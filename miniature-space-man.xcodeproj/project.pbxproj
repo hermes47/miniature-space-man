@@ -7,8 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		3BBE50EA1C6F2B55006E324D /* main.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3BBE50E91C6F2B55006E324D /* main.cpp */; };
-		3BBE50ED1C6F2BE9006E324D /* README.md in Sources */ = {isa = PBXBuildFile; fileRef = 3BBE50EC1C6F2BE9006E324D /* README.md */; };
+		3BBE50EA1C6F2B55006E324D /* integrate.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3BBE50E91C6F2B55006E324D /* integrate.cpp */; };
+		3BBE50F01C6F33C8006E324D /* main.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3BBE50EF1C6F33C8006E324D /* main.cpp */; };
+		3BBE50F41C6F3428006E324D /* data.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3BBE50F21C6F3428006E324D /* data.cpp */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -24,9 +25,13 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
-		3BBE50DE1C6F2AE3006E324D /* miniature-space-man */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; name = "miniature-space-man"; path = "/Users/ares/GitHub/miniature-space-man/build/Debug/miniature-space-man"; sourceTree = "<absolute>"; };
-		3BBE50E91C6F2B55006E324D /* main.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = main.cpp; sourceTree = "<group>"; };
+		3BBE50E91C6F2B55006E324D /* integrate.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = integrate.cpp; sourceTree = "<group>"; };
 		3BBE50EC1C6F2BE9006E324D /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
+		3BBE50EE1C6F3389006E324D /* miniature-space-man */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = "miniature-space-man"; sourceTree = BUILT_PRODUCTS_DIR; };
+		3BBE50EF1C6F33C8006E324D /* main.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = main.cpp; sourceTree = "<group>"; };
+		3BBE50F11C6F33FA006E324D /* integrate.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = integrate.hpp; sourceTree = "<group>"; };
+		3BBE50F21C6F3428006E324D /* data.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = data.cpp; sourceTree = "<group>"; };
+		3BBE50F31C6F3428006E324D /* data.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = data.hpp; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -44,14 +49,19 @@
 			isa = PBXGroup;
 			children = (
 				3BBE50EC1C6F2BE9006E324D /* README.md */,
+				3BBE50EF1C6F33C8006E324D /* main.cpp */,
 				3BBE50E81C6F2B55006E324D /* src */,
+				3BBE50EE1C6F3389006E324D /* miniature-space-man */,
 			);
 			sourceTree = "<group>";
 		};
 		3BBE50E81C6F2B55006E324D /* src */ = {
 			isa = PBXGroup;
 			children = (
-				3BBE50E91C6F2B55006E324D /* main.cpp */,
+				3BBE50E91C6F2B55006E324D /* integrate.cpp */,
+				3BBE50F11C6F33FA006E324D /* integrate.hpp */,
+				3BBE50F21C6F3428006E324D /* data.cpp */,
+				3BBE50F31C6F3428006E324D /* data.hpp */,
 			);
 			path = src;
 			sourceTree = "<group>";
@@ -73,7 +83,7 @@
 			);
 			name = "miniature-space-man";
 			productName = "miniature-space-man";
-			productReference = 3BBE50DE1C6F2AE3006E324D /* miniature-space-man */;
+			productReference = 3BBE50EE1C6F3389006E324D /* miniature-space-man */;
 			productType = "com.apple.product-type.tool";
 		};
 /* End PBXNativeTarget section */
@@ -112,8 +122,9 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				3BBE50ED1C6F2BE9006E324D /* README.md in Sources */,
-				3BBE50EA1C6F2B55006E324D /* main.cpp in Sources */,
+				3BBE50EA1C6F2B55006E324D /* integrate.cpp in Sources */,
+				3BBE50F01C6F33C8006E324D /* main.cpp in Sources */,
+				3BBE50F41C6F3428006E324D /* data.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -202,6 +213,8 @@
 		3BBE50E61C6F2AE3006E324D /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				HEADER_SEARCH_PATHS = /usr/local/include;
+				LIBRARY_SEARCH_PATHS = /usr/local/lib;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
 			name = Debug;
@@ -209,6 +222,8 @@
 		3BBE50E71C6F2AE3006E324D /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				HEADER_SEARCH_PATHS = /usr/local/include;
+				LIBRARY_SEARCH_PATHS = /usr/local/lib;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
 			name = Release;

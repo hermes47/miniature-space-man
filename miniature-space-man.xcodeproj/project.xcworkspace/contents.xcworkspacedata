@@ -2,6 +2,6 @@
 <Workspace
    version = "1.0">
    <FileRef
-      location = "self:miniature-space-man.xcodeproj">
+      location = "self:">
    </FileRef>
 </Workspace>
