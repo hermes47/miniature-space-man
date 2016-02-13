@@ -25,7 +25,7 @@ DeltaState deltaYEqualsY(const ParticleState &state, double time, double deltaTi
     double deltaPos = 0., deltaVel = 0.;
     for (int j = 0; j < tableau.a.size1(); j++)
     {
-        if (tableau.a(i,j))
+        if (i > j)
         {
             deltaPos += tableau.a(i,j) * ks[j].vel;
             deltaVel += tableau.a(i,j) * ks[j].accel;

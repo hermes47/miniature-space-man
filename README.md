@@ -16,3 +16,6 @@ A broad overview of the way I'm going to undertake this project follows:
 
 ---
 ## Progress
+2016-02-14:
+- Implemented Explicit Runge-Kutta integration based on a given Butcher tableau.
+- Added tableau generators for integration methods: Euler, Mid-point, Heun, Ralston, Generic second-order, RK3, RK4, three-eighths rule.
