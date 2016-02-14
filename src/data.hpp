@@ -40,5 +40,7 @@ ButcherTableau RK3();
 ButcherTableau RK4();
 ButcherTableau RK4_ThreeEighths();
 
+ButcherTableau HeunEuler();
+
 
 #endif /* data_hpp */

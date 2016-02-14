@@ -7,6 +7,7 @@
 //
 
 #include "data.hpp"
+#include <boost/numeric/ublas/io.hpp>
 
 // First order methods
 ButcherTableau Euler()
@@ -150,5 +151,28 @@ ButcherTableau RK4_ThreeEighths()
     tableau.a(3, 2) = 1.;
     tableau.a(4, 2) = -1.;
     tableau.a(4, 3) = 1.;
+    return tableau;
+}
+
+// Embedded methods
+ButcherTableau HeunEuler()
+{
+    /**
+     0 |  0   0
+     1 |  1   0
+     ------------
+       | 1/2 1/2
+       |  1   0
+     **/
+    ButcherTableau tableau {{}, {0.5, 0.5, 1.0, 0.0}, {0., 1.0}};
+    tableau.a.resize(2, 2);
+    
+    for (int row = 0; row < 2; row++)
+        for (int col = 0; col < 2; col++)
+            if (row <= col)
+                tableau.a(row, col) = 0.;
+            else
+                tableau.a(row, col) = 1.0;
+    std::cout << tableau.a << "\n";
     return tableau;
 }

@@ -24,9 +24,16 @@ void Ralston(ParticleState &state,double time, double deltaTime,
 void RK4(ParticleState &state, double time, double deltaTime, 
          DeltaState (*evaluateFunc)(const ParticleState&, double, double, const DeltaState&));
 
-void ExplicitRungeKutta(ParticleState &state, double time, double deltaTime, const ButcherTableau &tableau,
+void ExplicitRungeKutta(ParticleState &state, double startTime, double endTime, double deltaTime,
+                        const ButcherTableau &tableau,
+                        DeltaState (*evaluateFunc)(const ParticleState&, const ParticleState&, double, double));
+
+void AdaptiveRungeKutta(ParticleState &state, double startTime, double endTime, double error, const ButcherTableau &tableau,
                         DeltaState (*evaluateFunc)(const ParticleState&, const ParticleState&, double, double));
 
 ParticleState ki(const std::vector<DeltaState>& ks, const ButcherTableau &tableau, int i);
+
+std::vector<DeltaState> ks(ParticleState &state, double time, double deltaTime,const ButcherTableau &tableau,
+                      DeltaState (*evaluateFunc)(const ParticleState&, const ParticleState&, double, double));
 
 #endif /* integrate_h */

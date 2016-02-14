@@ -1,6 +1,7 @@
 #include "integrate.hpp"
 #include "data.hpp"
 #include <vector>
+#include <math.h>
 
 using namespace std;
 
@@ -90,26 +91,101 @@ void RK4(ParticleState &state, double time, double deltaTime,
  * To solve: provide a vector c of length s, a vector b of length s, and an sXs matrix a, in a butcher tableau
  **/
 
-void ExplicitRungeKutta(ParticleState &state, double time, double deltaTime, const ButcherTableau &tableau,
+void ExplicitRungeKutta(ParticleState &state, double startTime, double endTime, double deltaTime,
+                        const ButcherTableau &tableau,
                         DeltaState (*evaluateFunc)(const ParticleState&, const ParticleState&, double, double))
 {
-    vector<DeltaState> ks(tableau.b.size());
+    if (fmod(endTime - startTime,deltaTime))
+    {
+        cout << deltaTime << " is a bad time step for the target time. ";
+        int steps = static_cast<int>((endTime - startTime)/deltaTime);
+        deltaTime = (endTime - startTime)/steps;
+        cout << "Using " << deltaTime << " instead.\n";
+    }
+    
+    double time = startTime;
+    for (int step = 0; (step * deltaTime + startTime < endTime); step++)
+    {
+        vector<DeltaState> ksvec = ks(state, time, deltaTime, tableau, evaluateFunc);
+    
+        double deltaPos = 0., deltaVel = 0.;
+        for (int i = 0; i < tableau.c.size(); i++) {
+            deltaPos += tableau.b[i] * ksvec[i].vel;
+            deltaVel += tableau.b[i] * ksvec[i].accel;
+        }
+    
+        state.pos = state.pos + deltaTime * deltaPos;
+        state.vel = state.vel + deltaTime * deltaVel;
+        time += deltaTime;
+    }
+}
+
+void AdaptiveRungeKutta(ParticleState &state, double startTime, double endTime, double error, const ButcherTableau &tableau,
+                        DeltaState (*evaluateFunc)(const ParticleState&, const ParticleState&, double, double))
+{
+    int iterationLimit = 50, iterations = 0;
+    double timeStep = (endTime - startTime)/10;
+    double errorEstimate = 1e80;
+    ParticleState bestEstimate;
+    
+    while ((errorEstimate > error) && (iterations < iterationLimit))
+    {
+        iterations++;
+        double time = startTime;
+        ParticleState highOrder;
+        ParticleState lowOrder;
+        
+        highOrder.pos = state.pos;
+        highOrder.vel = state.vel;
+        lowOrder.pos = state.pos;
+        lowOrder.vel = state.vel;
+        
+        for (int step = 0; (step * timeStep + startTime < endTime); step++)
+        {
+            vector<DeltaState> ksvec = ks(highOrder, time, timeStep, tableau, evaluateFunc);
+            double deltaPosHigh = 0., deltaVelHigh = 0.;
+            double deltaPosLow = 0., deltaVelLow = 0.;
+            for (int i = 0; i < tableau.c.size(); i++)
+            {
+                deltaPosHigh += tableau.b[i] * ksvec[i].vel;
+                deltaVelHigh += tableau.b[i] * ksvec[i].accel;
+                deltaPosLow += tableau.b[i + tableau.c.size()] * ksvec[i].vel;
+                deltaVelLow += tableau.b[i + tableau.c.size()] * ksvec[i].accel;
+            }
+            highOrder.pos = highOrder.pos + timeStep * deltaPosHigh;
+            highOrder.vel = highOrder.vel + timeStep * deltaVelHigh;
+            lowOrder.pos = lowOrder.pos + timeStep * deltaPosLow;
+            lowOrder.vel = lowOrder.vel + timeStep * deltaVelLow;
+            time += timeStep;
+        }
+        errorEstimate = highOrder.pos - lowOrder.pos;
+        if (errorEstimate > error)
+        {
+            timeStep = timeStep / (2 * iterations);
+        }
+        bestEstimate.pos = highOrder.pos;
+        bestEstimate.vel = highOrder.vel;
+    }
+    
+    state.pos = bestEstimate.pos;
+    state.vel = bestEstimate.vel;
+    cout << iterations << " iterations required.";
+}
+
+// Calculate all the ks's given a tableau
+vector<DeltaState> ks(ParticleState &state, double time, double deltaTime,const ButcherTableau &tableau,
+                       DeltaState (*evaluateFunc)(const ParticleState&, const ParticleState&, double, double))
+{
+    vector<DeltaState> ks(tableau.c.size());
     for (int i = 0; i < ks.size(); i++)
     {
         ParticleState stateChange = ki(ks, tableau, i);
         ks[i] = evaluateFunc(state, stateChange, time, deltaTime);
     }
-    
-    double deltaPos = 0., deltaVel = 0.;
-    for (int i = 0; i < tableau.b.size(); i++) {
-        deltaPos += tableau.b[i] * ks[i].vel;
-        deltaVel += tableau.b[i] * ks[i].accel;
-    }
-    
-    state.pos = state.pos + deltaTime * deltaPos;
-    state.vel = state.vel + deltaTime * deltaVel;
+    return ks;
 }
 
+// Calculate an individual ki value
 ParticleState ki(const vector<DeltaState>& ks, const ButcherTableau &tableau, int i)
 {
     ParticleState stateChange;
