@@ -41,6 +41,7 @@ ButcherTableau RK4();
 ButcherTableau RK4_ThreeEighths();
 
 ButcherTableau HeunEuler();
+ButcherTableau BogackiShampine();
 
 
 #endif /* data_hpp */

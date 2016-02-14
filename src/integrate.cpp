@@ -97,10 +97,10 @@ void ExplicitRungeKutta(ParticleState &state, double startTime, double endTime, 
 {
     if (fmod(endTime - startTime,deltaTime))
     {
-        cout << deltaTime << " is a bad time step for the target time. ";
+        //cout << deltaTime << " is a bad time step for the target time. ";
         int steps = static_cast<int>((endTime - startTime)/deltaTime);
         deltaTime = (endTime - startTime)/steps;
-        cout << "Using " << deltaTime << " instead.\n";
+        //cout << "Using " << deltaTime << " instead.\n";
     }
     
     double time = startTime;
@@ -123,8 +123,16 @@ void ExplicitRungeKutta(ParticleState &state, double startTime, double endTime, 
 void AdaptiveRungeKutta(ParticleState &state, double startTime, double endTime, double error, const ButcherTableau &tableau,
                         DeltaState (*evaluateFunc)(const ParticleState&, const ParticleState&, double, double))
 {
+    if (!(2 * tableau.c.size() == tableau.b.size()))
+    {
+        cout << "Tableau is not for adaptive. Doing explict with time step of ";
+        cout << (endTime - startTime)/100 << ".\n";
+        ExplicitRungeKutta(state, startTime, endTime, (endTime - startTime)/100, tableau, evaluateFunc);
+        return;
+    }
+    
     int iterationLimit = 50, iterations = 0;
-    double timeStep = (endTime - startTime)/10;
+    double timeStep = (endTime - startTime);
     double errorEstimate = 1e80;
     ParticleState bestEstimate;
     
@@ -158,10 +166,11 @@ void AdaptiveRungeKutta(ParticleState &state, double startTime, double endTime, 
             lowOrder.vel = lowOrder.vel + timeStep * deltaVelLow;
             time += timeStep;
         }
-        errorEstimate = highOrder.pos - lowOrder.pos;
+        errorEstimate = abs(highOrder.pos - lowOrder.pos);
+
         if (errorEstimate > error)
         {
-            timeStep = timeStep / (2 * iterations);
+            timeStep = timeStep / (2 );//* iterations);
         }
         bestEstimate.pos = highOrder.pos;
         bestEstimate.vel = highOrder.vel;
@@ -169,7 +178,8 @@ void AdaptiveRungeKutta(ParticleState &state, double startTime, double endTime, 
     
     state.pos = bestEstimate.pos;
     state.vel = bestEstimate.vel;
-    cout << iterations << " iterations required.";
+    cout << iterations << " iterations required. Final error: " << errorEstimate << ". Steps " <<
+             (endTime - startTime)/ timeStep << "\n";
 }
 
 // Calculate all the ks's given a tableau

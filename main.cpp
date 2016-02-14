@@ -65,12 +65,12 @@ int IntegratorTest()
     ButcherTableau euler = Euler();
     ButcherTableau ralston = Ralston();
     ButcherTableau midpoint = MidPoint();
-    ButcherTableau adaptive = HeunEuler();
+    ButcherTableau adaptive = BogackiShampine();
     ButcherTableau huen = Heun();
     double timeStep = 1.;
     double targetTime = 4;
         //ExplicitRungeKutta(initialEuler, time + i*timeStep, timeStep, euler, deltaYEqualsY);
-    AdaptiveRungeKutta(initialEuler, time, targetTime, 0.001, adaptive, deltaYEqualsTanYPlus1);
+    AdaptiveRungeKutta(initialEuler, time, targetTime, 0.0001, adaptive, deltaYEqualsTanYPlus1);
     cout << "Euler: y(t=" << targetTime << ") = " << initialEuler.pos << "\n";
     ExplicitRungeKutta(initialMidPoint, time, targetTime, 1, huen, deltaYEqualsTanYPlus1);
     cout << "Euler: y(t=" << targetTime << ") = " << initialMidPoint.pos << "\n";

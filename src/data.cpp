@@ -112,9 +112,9 @@ ButcherTableau RK3()
         for (int col = 0; col < 3; col++)
             tableau.a(row, col) = 0.;
     
-    tableau.a(2, 1) = 0.5;
-    tableau.a(3, 1) = -1.0;
-    tableau.a(3, 2) = 2.0;
+    tableau.a(1, 0) = 0.5;
+    tableau.a(2, 0) = -1.0;
+    tableau.a(2, 1) = 2.0;
     
     return tableau;
 }
@@ -129,9 +129,9 @@ ButcherTableau RK4()
         for (int col = 0; col < 4; col++)
             tableau.a(row, col) = 0.;
     
+    tableau.a(1, 0) = 0.5;
     tableau.a(2, 1) = 0.5;
-    tableau.a(3, 2) = 0.5;
-    tableau.a(4, 3) = 1.0;
+    tableau.a(3, 2) = 1.0;
     
     return tableau;
 }
@@ -145,12 +145,12 @@ ButcherTableau RK4_ThreeEighths()
         for (int col = 0; col < 4; col++)
             tableau.a(row, col) = 0.;
     
-    tableau.a(2, 1) = 1./3.;
-    tableau.a(3, 1) = -1./3.;
-    tableau.a(4, 1) = 1.;
+    tableau.a(1, 0) = 1./3.;
+    tableau.a(2, 0) = -1./3.;
+    tableau.a(3, 0) = 1.;
+    tableau.a(2, 1) = 1.;
+    tableau.a(3, 1) = -1.;
     tableau.a(3, 2) = 1.;
-    tableau.a(4, 2) = -1.;
-    tableau.a(4, 3) = 1.;
     return tableau;
 }
 
@@ -173,6 +173,25 @@ ButcherTableau HeunEuler()
                 tableau.a(row, col) = 0.;
             else
                 tableau.a(row, col) = 1.0;
-    std::cout << tableau.a << "\n";
+    return tableau;
+}
+
+ButcherTableau BogackiShampine()
+{
+    ButcherTableau tableau {{},
+        {2./9., 1./3., 4./9., 0.,
+         7./24., 1./4., 1./3., 1./8.},
+        {0., 1./2., 3./4., 1.}};
+    tableau.a.resize(4, 4);
+    
+    for (int row = 0; row < 4; row++)
+        for (int col = 0; col < 4; col++)
+            tableau.a(row, col) = 0.;
+    
+    tableau.a(1, 0) = 1./2.;
+    tableau.a(3, 0) = 2./9.;
+    tableau.a(2, 1) = 3./4.;
+    tableau.a(3, 1) = 1./3.;
+    tableau.a(3, 2) = 4./9.;
     return tableau;
 }
