@@ -9,7 +9,7 @@ I am currently learning about programing in C++. I want to work on a 'learning' 
 ## Steps
 A broad overview of the way I'm going to undertake this project follows:
 - [ ] Write a series of integrators (Euler, Ralston, RK3, RK4, RK5, Verlet, Leapfrog...) that work on vectors/quaterions (when I figure them out).
-- [ ] Setup an Earth-Moon two body system, and simulate it in a data only manner.
+- [ ] Setup an Earth-Moon two body system, and simulate it in a data only manner. (Actually, could solve analytically given it'll be a two body problem, then compare simulated results to analytic results.)
 - [ ] Investigate time step limits of each of the integrators, and the real-time limits.
 - [ ] Extend the system to include the Sun, and re simulate.
 - [ ] ...
@@ -19,3 +19,5 @@ A broad overview of the way I'm going to undertake this project follows:
 2016-02-14:
 - Implemented Explicit Runge-Kutta integration based on a given Butcher tableau.
 - Added tableau generators for integration methods: Euler, Mid-point, Heun, Ralston, Generic second-order, RK3, RK4, three-eighths rule.
+- Implemented Adaptive Runge-Kutta integration based on a given extended Butcher tableau.
+- Added tableau generators for adaptive methods: Heun-Euler and Bogacki-Shampine. More to come.
