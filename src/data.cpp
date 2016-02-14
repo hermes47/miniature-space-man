@@ -195,3 +195,37 @@ ButcherTableau BogackiShampine()
     tableau.a(3, 2) = 4./9.;
     return tableau;
 }
+
+ButcherTableau RungeKuttaFehlberg()
+{
+    ButcherTableau tableau {{},
+        {16./135., 0., 6656./12825., 28561/56430., -9./50., 2./55.,
+         25./216., 0., 1408./2565., 2197./4104., -1./5, 0.},
+        {0., 1./4., 3./8., 12./13., 1., 1./2}};
+    tableau.a.resize(6, 6);
+    
+    for (int row = 0; row < 6; row++)
+        for (int col = 0; col < 6; col++)
+            tableau.a(row, col) = 0.;
+    
+    tableau.a(1, 0) = 1./4.;
+    tableau.a(2, 0) = 3./32.;
+    tableau.a(3, 0) = 1932./2197.;
+    tableau.a(4, 0) = 439./216.;
+    tableau.a(5, 0) = -8./27.;
+    
+    tableau.a(2, 1) = 9./32.;
+    tableau.a(3, 1) = -7200./2197.;
+    tableau.a(4, 1) = -8.;
+    tableau.a(5, 1) = 2.;
+    
+    tableau.a(3, 2) = 7296./2197.;
+    tableau.a(4, 2) = 3680./513.;
+    tableau.a(5, 2) = -3544./2565.;
+    
+    tableau.a(4, 3) = -845./4104.;
+    tableau.a(5, 3) = 1859./4104.;
+    
+    tableau.a(5, 4) = -11./40.;
+    return tableau;
+}
