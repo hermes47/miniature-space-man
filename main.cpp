@@ -39,25 +39,15 @@ DeltaState deltaYEqualsY(const ParticleState &state, double time, double deltaTi
     return output;
 }
 
-DeltaState deltaYEqualsTanYPlus1(const ParticleState &state, double time, double deltaTime,
-                                 const std::vector<DeltaState> &ks, const ButcherTableau &tableau, int i)
+DeltaState deltaYEqualsTanYPlus1(const ParticleState &state, const ParticleState &changeState, double time, double deltaTime)
 {
     ParticleState newState;
-    double deltaPos = 0., deltaVel = 0.;
-    for (int j = 0; j < tableau.a.size1(); j++)
-    {
-        if (tableau.a(i,j))
-        {
-            deltaPos += tableau.a(i,j) * ks[j].vel;
-            deltaVel += tableau.a(i,j) * ks[j].accel;
-        }
-    }
     
-    newState.pos = state.pos + deltaTime * deltaPos;
-    newState.vel = state.vel + deltaTime * deltaVel;
+    newState.pos = state.pos + deltaTime * changeState.pos;
+    newState.vel = state.vel + deltaTime * changeState.vel;
     
     DeltaState output;
-    output.vel = tan(newState.pos) + 1;
+    output.vel = newState.pos; //tan(newState.pos) + 1;
     return output;
 }
 
@@ -66,19 +56,20 @@ int IntegratorTest()
     cout << "Testing different integrators\n";
     cout << "Given dy/dt = y + t, and y(0) = 1, find y(4).\n";
      
-    double time = 1.0;
+    double time = 0.0;
     ParticleState initialEuler {1.0};
     ParticleState initialRalston {1.0};
     ParticleState initialRK4 {1.0};
     ParticleState initialMidPoint {1.0};
     ButcherTableau euler = Euler();
     ButcherTableau ralston = Ralston();
-    double timeStep = 0.025;
-    double targetTime = 1.1;
+    ButcherTableau midpoint = MidPoint();
+    double timeStep = 0.5;
+    double targetTime = 4;
     for (int i = 0; i < ((targetTime - time)/timeStep); i++) {
         //ExplicitRungeKutta(initialEuler, time + i*timeStep, timeStep, euler, deltaYEqualsY);
-        ExplicitRungeKutta(initialRalston, time + i*timeStep, timeStep, ralston, deltaYEqualsTanYPlus1);
-        cout << "Ralston: y(" << i+1 << ") = " << initialRalston.pos << "\n";
+        ExplicitRungeKutta(initialEuler, time + i*timeStep, timeStep, midpoint, deltaYEqualsTanYPlus1);
+        cout << "Euler: y(" << i+1 << ") = " << initialEuler.pos << "\n";
 //        Euler(initialEuler, time + i * timeStep, timeStep, deltaYEqualsY);
 //        Ralston(initialRalston, time + i * timeStep, timeStep, deltaYEqualsY);
 //        RK4(initialRK4, time + i * timeStep, timeStep, deltaYEqualsY);

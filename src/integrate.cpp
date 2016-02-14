@@ -39,7 +39,7 @@ void Euler(ParticleState &state, double time, double deltaTime,
  * y0 = 1,       t0 = 0,   y0.5 = 1.25,    y1 = 1.625
  * y1 = 1.625,   t1 = 0.5, y1.5 = 2.0313,  y2 = 2.6406
  * y2 = 2.6406,  t2 = 1.0, y2.5 = 3.3008,  y3 = 4.2910
- * y3 = 4.3910,  t3 = 1.5, y3.5 = 5.3638,  y4 = 6.9729
+ * y3 = 4.2910,  t3 = 1.5, y3.5 = 5.3638,  y4 = 6.9729
  * y4 = 6.9729,  t4 = 2.0, y4.5 = 8.7161,  y5 = 11.3310
  * y5 = 11.3310, t5 = 2.5, y5.5 = 14.1637, y6 = 18.4128
  * y6 = 18.4128, t6 = 3.0, y6.5 = 23.0160, y7 = 29.9208
@@ -89,14 +89,15 @@ void RK4(ParticleState &state, double time, double deltaTime,
  * k_{i} = f(t_{n} + c_{i} * h, y_{n} + h * SUM[j=1 -> s](a_{ij} * k_{j}))
  * To solve: provide a vector c of length s, a vector b of length s, and an sXs matrix a, in a butcher tableau
  **/
+
 void ExplicitRungeKutta(ParticleState &state, double time, double deltaTime, const ButcherTableau &tableau,
-                        DeltaState (*evaluateFunc)(const ParticleState&, double, double, const vector<DeltaState>&,
-                                                   const ButcherTableau&, int))
+                        DeltaState (*evaluateFunc)(const ParticleState&, const ParticleState&, double, double))
 {
     vector<DeltaState> ks(tableau.b.size());
     for (int i = 0; i < ks.size(); i++)
     {
-        ks[i] = evaluateFunc(state, time, deltaTime, ks, tableau, i);
+        ParticleState stateChange = ki(ks, tableau, i);
+        ks[i] = evaluateFunc(state, stateChange, time, deltaTime);
     }
     
     double deltaPos = 0., deltaVel = 0.;
@@ -107,5 +108,23 @@ void ExplicitRungeKutta(ParticleState &state, double time, double deltaTime, con
     
     state.pos = state.pos + deltaTime * deltaPos;
     state.vel = state.vel + deltaTime * deltaVel;
+}
+
+ParticleState ki(const vector<DeltaState>& ks, const ButcherTableau &tableau, int i)
+{
+    ParticleState stateChange;
+    double deltaPos = 0., deltaVel = 0.;
+    for (int j = 0; j < tableau.a.size1(); j++)
+    {
+        if (i > j)
+        {
+            deltaPos += tableau.a(i,j) * ks[j].vel;
+            deltaVel += tableau.a(i,j) * ks[j].accel;
+        }
+    }
+    stateChange.pos = deltaPos;
+    stateChange.vel = deltaVel;
+    return stateChange;
+    
 }
 
