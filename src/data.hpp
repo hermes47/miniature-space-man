@@ -43,6 +43,7 @@ ButcherTableau RK4_ThreeEighths();
 ButcherTableau HeunEuler();
 ButcherTableau BogackiShampine();
 ButcherTableau RungeKuttaFehlberg();
+ButcherTableau CashKarp();
 
 
 #endif /* data_hpp */

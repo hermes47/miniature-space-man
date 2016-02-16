@@ -200,7 +200,7 @@ ButcherTableau RungeKuttaFehlberg()
 {
     ButcherTableau tableau {{},
         {16./135., 0., 6656./12825., 28561/56430., -9./50., 2./55.,
-         25./216., 0., 1408./2565., 2197./4104., -1./5, 0.},
+            25./216., 0., 1408./2565., 2197./4104., -1./5, 0.},
         {0., 1./4., 3./8., 12./13., 1., 1./2}};
     tableau.a.resize(6, 6);
     
@@ -227,5 +227,39 @@ ButcherTableau RungeKuttaFehlberg()
     tableau.a(5, 3) = 1859./4104.;
     
     tableau.a(5, 4) = -11./40.;
+    return tableau;
+}
+
+ButcherTableau CashKarp()
+{
+    ButcherTableau tableau {{},
+        {37./378., 0., 250./621., 125/594., 0., 512./1771.,
+            2825./27648., 0., 18575./48384., 13525./55296., 277./14336., 0.25},
+        {0., 1./5., 3./10., 3./5., 1., 7./8.}};
+    tableau.a.resize(6, 6);
+    
+    for (int row = 0; row < 6; row++)
+        for (int col = 0; col < 6; col++)
+            tableau.a(row, col) = 0.;
+    
+    tableau.a(1, 0) = 1./5.;
+    tableau.a(2, 0) = 3./40.;
+    tableau.a(3, 0) = 3./10.;
+    tableau.a(4, 0) = -11./54.;
+    tableau.a(5, 0) = 1631./55296.;
+    
+    tableau.a(2, 1) = 9./40.;
+    tableau.a(3, 1) = -9./10.;
+    tableau.a(4, 1) = 5./2.;
+    tableau.a(5, 1) = 175./512;
+    
+    tableau.a(3, 2) = 6./5.;
+    tableau.a(4, 2) = -70./27.;
+    tableau.a(5, 2) = 575./13824.;
+    
+    tableau.a(4, 3) = 35./27.;
+    tableau.a(5, 3) = 44275./110592.;
+    
+    tableau.a(5, 4) = -253./4096.;
     return tableau;
 }
