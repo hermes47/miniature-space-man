@@ -9,6 +9,7 @@
 #include <iostream>
 #include "integrate.hpp"
 #include "data.hpp"
+#include "rowreduction.hpp"
 #include <cmath>
 #include <math.h>
 #include <boost/numeric/ublas/matrix.hpp>
@@ -89,9 +90,71 @@ int IntegratorTest()
     return 0;
 }
 
+int RowReductionTest()
+{
+    std::vector<std::vector<double>> matrixA(3);
+    std::vector<std::vector<double>> matrixB(3);
+    for (int row = 0; row < 3; row++)
+    {
+        matrixA[row].resize(6);
+        matrixB[row].resize(4);
+    }
+    
+    matrixA[0][0] = 2;
+    matrixA[0][1] = -1;
+    matrixA[0][2] = 0;
+    matrixA[1][0] = -1;
+    matrixA[1][1] = 2;
+    matrixA[1][2] = -1;
+    matrixA[2][0] = 0;
+    matrixA[2][1] = -1;
+    matrixA[2][2] = 2;
+    matrixA[0][3] = 1;
+    matrixA[0][4] = 0;
+    matrixA[0][5] = 0;
+    matrixA[1][3] = 0;
+    matrixA[1][4] = 1;
+    matrixA[1][5] = 0;
+    matrixA[2][3] = 0;
+    matrixA[2][4] = 0;
+    matrixA[2][5] = 1;
+    
+    matrixB[0][0] = 2;
+    matrixB[0][1] = 1;
+    matrixB[0][2] = -1;
+    matrixB[1][0] = -3;
+    matrixB[1][1] = -1;
+    matrixB[1][2] = 2;
+    matrixB[2][0] = -2;
+    matrixB[2][1] = 1;
+    matrixB[2][2] = 2;
+    matrixB[0][3] = 8;
+    matrixB[1][3] = -11;
+    matrixB[2][3] = -3;
+    
+    RowReduce(matrixA);
+    for (int row = 0; row < matrixA.size(); row++)
+    {
+        for (int col = 0; col < matrixA[row].size(); col++)
+            cout << matrixA[row][col]  << ", ";
+        cout << "\n";
+    }
+    cout << "\n";
+    
+    RowReduce(matrixB);
+    for (int row = 0; row < matrixB.size(); row++)
+    {
+        for (int col = 0; col < matrixB[row].size(); col++)
+            cout << matrixB[row][col]  << ", ";
+        cout << "\n";
+    }
+
+    return 0;
+}
+
 int main()
 {
-    IntegratorTest();
+    RowReductionTest();
     return 0;
 }
 
