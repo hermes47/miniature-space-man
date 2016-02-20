@@ -6,7 +6,7 @@
 //  Copyright © 2016 Ivan Welsh. All rights reserved.
 //
 
-#include "rowreduction.hpp"
+#include "matrix.hpp"
 #include <vector>
 #include <cmath>
 #include <iostream>
@@ -62,3 +62,40 @@ void RowReduce(vector<vector<double>> &matrixExtended)
         
     }
 }
+
+/*
+ * Given a matrix A, invert it (B) such that AB = I. The matrix must be square.
+ */
+vector<vector<double>> Invert(vector<vector<double>> &matrix)
+{
+    // Generate an extended matrix, by adding the relevant Identity matrix to the right
+    vector<vector<double>> toInvert;
+    toInvert.resize(matrix.size());
+    for (int row = 0; row < matrix.size(); row++)
+    {
+        toInvert[row].resize(matrix.size() * 2);
+        for (int col = 0; col < toInvert[row].size(); col++)
+        {
+            if (col < matrix.size())
+                toInvert[row][col] = matrix[row][col];
+            else if ((col - matrix.size()) == row)
+                toInvert[row][col] = 1;
+            else
+                toInvert[row][col] = 0;
+        }
+    }
+    // Row reduce to get the inverted matrix, and extract the inverted matrix
+    RowReduce(toInvert);
+    vector<vector<double>> inverted;
+    inverted.resize(matrix.size());
+    for (int row = 0; row < matrix.size(); row++)
+    {
+        inverted[row].resize(matrix.size());
+        for (int col = 0; col < matrix.size(); col++)
+            inverted[row][col] = toInvert[row][col + matrix.size()];
+    }
+    
+    
+    return inverted;
+}
+

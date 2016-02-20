@@ -6,9 +6,11 @@
 //  Copyright © 2016 Ivan Welsh. All rights reserved.
 //
 
-#ifndef rowreduction_hpp
-#define rowreduction_hpp
+#ifndef matrix_hpp
+#define matrix_hpp
 
 #include <vector>
 void RowReduce(std::vector<std::vector<double>> &matrix);
-#endif /* rowreduction_hpp */
+
+std::vector<std::vector<double>> Invert(std::vector<std::vector<double>> &matrix);
+#endif /* matrix_hpp */

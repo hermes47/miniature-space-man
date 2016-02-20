@@ -9,7 +9,7 @@
 #include <iostream>
 #include "integrate.hpp"
 #include "data.hpp"
-#include "rowreduction.hpp"
+#include "matrix.hpp"
 #include <cmath>
 #include <math.h>
 #include <boost/numeric/ublas/matrix.hpp>
@@ -131,7 +131,7 @@ int RowReductionTest()
     matrixB[0][3] = 8;
     matrixB[1][3] = -11;
     matrixB[2][3] = -3;
-    
+    std::vector<std::vector<double>> matrixC = Invert(matrixA);
     RowReduce(matrixA);
     for (int row = 0; row < matrixA.size(); row++)
     {
@@ -141,11 +141,11 @@ int RowReductionTest()
     }
     cout << "\n";
     
-    RowReduce(matrixB);
-    for (int row = 0; row < matrixB.size(); row++)
+    
+    for (int row = 0; row < matrixC.size(); row++)
     {
-        for (int col = 0; col < matrixB[row].size(); col++)
-            cout << matrixB[row][col]  << ", ";
+        for (int col = 0; col < matrixC[row].size(); col++)
+            cout << matrixC[row][col]  << ", ";
         cout << "\n";
     }
 
