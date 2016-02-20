@@ -11,6 +11,7 @@
 		3BBE50F01C6F33C8006E324D /* main.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3BBE50EF1C6F33C8006E324D /* main.cpp */; };
 		3BBE50F41C6F3428006E324D /* data.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3BBE50F21C6F3428006E324D /* data.cpp */; };
 		C3FC29251C76BB2000F8F64F /* matrix.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C3FC29231C76BB2000F8F64F /* matrix.cpp */; };
+		C3FC29281C790E0500F8F64F /* solver.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C3FC29261C790E0500F8F64F /* solver.cpp */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -35,6 +36,8 @@
 		3BBE50F31C6F3428006E324D /* data.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = data.hpp; sourceTree = "<group>"; };
 		C3FC29231C76BB2000F8F64F /* matrix.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = matrix.cpp; sourceTree = "<group>"; };
 		C3FC29241C76BB2000F8F64F /* matrix.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = matrix.hpp; sourceTree = "<group>"; };
+		C3FC29261C790E0500F8F64F /* solver.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = solver.cpp; sourceTree = "<group>"; };
+		C3FC29271C790E0500F8F64F /* solver.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = solver.hpp; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -67,6 +70,8 @@
 				3BBE50F31C6F3428006E324D /* data.hpp */,
 				C3FC29231C76BB2000F8F64F /* matrix.cpp */,
 				C3FC29241C76BB2000F8F64F /* matrix.hpp */,
+				C3FC29261C790E0500F8F64F /* solver.cpp */,
+				C3FC29271C790E0500F8F64F /* solver.hpp */,
 			);
 			path = src;
 			sourceTree = "<group>";
@@ -127,6 +132,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				C3FC29281C790E0500F8F64F /* solver.cpp in Sources */,
 				3BBE50EA1C6F2B55006E324D /* integrate.cpp in Sources */,
 				3BBE50F01C6F33C8006E324D /* main.cpp in Sources */,
 				C3FC29251C76BB2000F8F64F /* matrix.cpp in Sources */,

@@ -10,6 +10,7 @@
 #include "integrate.hpp"
 #include "data.hpp"
 #include "matrix.hpp"
+#include "solver.hpp"
 #include <cmath>
 #include <math.h>
 #include <boost/numeric/ublas/matrix.hpp>
@@ -150,9 +151,21 @@ int RowReductionTest()
     return 0;
 }
 
+
+double func(double x)
+{
+    return x * x * x - cos(x);
+}
+
+void NewtonTesting()
+{
+    double solved =  NewtonsRaphson(func, 0.5);
+    cout << 10 << ", " << solved << "\n";
+}
+
 int main()
 {
-    RowReductionTest();
+    NewtonTesting();
     return 0;
 }
 

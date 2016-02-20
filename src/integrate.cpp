@@ -54,10 +54,8 @@ void ExplicitRungeKutta(ParticleState &state, double startTime, double endTime, 
 {
     if (fmod(endTime - startTime,deltaTime))
     {
-        //cout << deltaTime << " is a bad time step for the target time. ";
         int steps = static_cast<int>((endTime - startTime)/deltaTime);
         deltaTime = (endTime - startTime)/steps;
-        //cout << "Using " << deltaTime << " instead.\n";
     }
     
     double time = startTime;
