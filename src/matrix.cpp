@@ -128,3 +128,54 @@ vector<double> Solve(vector<vector<double>> &matrix, vector<double> &vector)
     return result;
     
 }
+
+/*
+ * Given an NxN matrix A, calculate the determinant
+ */
+double Determinant(std::vector<std::vector<double>> &matrix)
+{
+    // make a copy of the matrix
+    vector<vector<double>> toDeterminate;
+    toDeterminate.resize(matrix.size());
+    for (int row = 0; row < matrix.size(); row++)
+    {
+        toDeterminate[row].resize(matrix[row].size());
+        for (int col = 0; col < matrix[row].size(); col++)
+            toDeterminate[row][col] = matrix[row][col];
+    }
+    
+    // use row operations to get into row echelon form
+    // yes code is duplicated, but meh
+    int numRows = static_cast<int>(toDeterminate.size());
+    int numCols = static_cast<int>(toDeterminate[0].size());
+    double determinant = 1;
+    // Operate into echelon form
+    for (int iter = 0; iter < numRows; iter++)
+    {
+        // find and swap rows
+        int largestElement = iter;
+        for (int row = iter; row < numRows; row++)
+            if (abs(toDeterminate[row][iter]) >= abs(toDeterminate[largestElement][iter]))
+                largestElement = row;
+        
+        
+        if (!(largestElement == iter))
+        {
+            // each row swap multiplies the determinant by -1
+            swap(toDeterminate[iter],toDeterminate[largestElement]);
+            determinant *= -1;
+        }
+        
+        // subtract scalar multiple of current row from every row below, so that only one non-zero value in column
+        for (int row = iter + 1; row < numRows; row++)
+        {
+            double multiplier = toDeterminate[row][iter] / toDeterminate[iter][iter];
+            for (int col = 0; col < numCols; col++)
+                toDeterminate[row][col] -= multiplier * toDeterminate[iter][col];
+        }
+    }
+    // final determinant is then the product of the diagonal values
+    for (int diag = 0; diag < toDeterminate.size(); diag++)
+        determinant *= toDeterminate[diag][diag];
+    return determinant;
+}

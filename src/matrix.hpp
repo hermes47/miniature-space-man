@@ -26,4 +26,9 @@ std::vector<std::vector<double>> Invert(std::vector<std::vector<double>> &matrix
  */
 std::vector<double> Solve(std::vector<std::vector<double>> &matrix, std::vector<double> &vector);
 
+/*
+ * Given an NxN matrix A, calculate the determinant
+ */
+double Determinant(std::vector<std::vector<double>> &matrix);
+
 #endif /* matrix_hpp */

@@ -136,7 +136,7 @@ int RowReductionTest()
    
     
     std::vector<double> vectorX = Solve(matrixB, vectorB);
-    
+    cout << Determinant(matrixB) << "\n";
     for (int row = 0; row < matrixB.size(); row++)
     {
         for (int col = 0; col < matrixB[row].size(); col++)
@@ -165,7 +165,7 @@ void NewtonTesting()
 
 int main()
 {
-    NewtonTesting();
+    RowReductionTest();
     return 0;
 }
 
