@@ -21,3 +21,9 @@ A broad overview of the way I'm going to undertake this project follows:
 - Added tableau generators for integration methods: Euler, Mid-point, Heun, Ralston, Generic second-order, RK3, RK4, three-eighths rule.
 - Implemented Adaptive Runge-Kutta integration based on a given extended Butcher tableau.
 - Added tableau generators for adaptive methods: Heun-Euler and Bogacki-Shampine. More to come.
+2016-02-20:
+- Added a Gauss-Jordon Row Reduction method. Will be useful for solving Newton-Raphson method applied to Vectors of variables, eg as required by implicit integrators.
+- Using the row reduction function, added a matrix Inverse calculation function.
+- Using the row reduction function, added a simultaneous equation solver.
+- Removed stand alone RK type integrators. No need for them.
+- Realised that this progress thing is going to basically be the git log.
