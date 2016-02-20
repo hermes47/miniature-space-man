@@ -12,18 +12,6 @@
 #include "data.hpp"
 #include <vector>
 
-void Euler(ParticleState &state, double time, double deltaTime, 
-           DeltaState (*evaluateFunc)(const ParticleState&, double, double, const DeltaState&));
-
-void MidPoint(ParticleState &state,double time, double deltaTime,
-             DeltaState (*evaluateFunc)(const ParticleState&, double, double, const DeltaState&));
-
-void Ralston(ParticleState &state,double time, double deltaTime,
-             DeltaState (*evaluateFunc)(const ParticleState&, double, double, const DeltaState&));
-
-void RK4(ParticleState &state, double time, double deltaTime, 
-         DeltaState (*evaluateFunc)(const ParticleState&, double, double, const DeltaState&));
-
 void ExplicitRungeKutta(ParticleState &state, double startTime, double endTime, double deltaTime,
                         const ButcherTableau &tableau,
                         DeltaState (*evaluateFunc)(const ParticleState&, const ParticleState&, double, double));

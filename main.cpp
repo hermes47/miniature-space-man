@@ -94,10 +94,11 @@ int RowReductionTest()
 {
     std::vector<std::vector<double>> matrixA(3);
     std::vector<std::vector<double>> matrixB(3);
+    std::vector<double> vectorB(3);
     for (int row = 0; row < 3; row++)
     {
         matrixA[row].resize(6);
-        matrixB[row].resize(4);
+        matrixB[row].resize(3);
     }
     
     matrixA[0][0] = 2;
@@ -128,27 +129,24 @@ int RowReductionTest()
     matrixB[2][0] = -2;
     matrixB[2][1] = 1;
     matrixB[2][2] = 2;
-    matrixB[0][3] = 8;
-    matrixB[1][3] = -11;
-    matrixB[2][3] = -3;
-    std::vector<std::vector<double>> matrixC = Invert(matrixA);
-    RowReduce(matrixA);
-    for (int row = 0; row < matrixA.size(); row++)
-    {
-        for (int col = 0; col < matrixA[row].size(); col++)
-            cout << matrixA[row][col]  << ", ";
-        cout << "\n";
-    }
-    cout << "\n";
+    vectorB[0] = 8;
+    vectorB[1] = -11;
+    vectorB[2] = -3;
+   
     
+    std::vector<double> vectorX = Solve(matrixB, vectorB);
     
-    for (int row = 0; row < matrixC.size(); row++)
+    for (int row = 0; row < matrixB.size(); row++)
     {
-        for (int col = 0; col < matrixC[row].size(); col++)
-            cout << matrixC[row][col]  << ", ";
+        for (int col = 0; col < matrixB[row].size(); col++)
+            cout << matrixB[row][col]  << ", ";
         cout << "\n";
     }
 
+    for (int row = 0; row < vectorX.size(); row++)
+        cout << vectorX[row] << ", ";
+    
+    cout << "\n";
     return 0;
 }
 

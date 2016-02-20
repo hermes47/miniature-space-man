@@ -22,15 +22,6 @@ using namespace std;
  * => y(4) = 25.6289
  **/
 
-void Euler(ParticleState &state, double time, double deltaTime,
-           DeltaState (*evaluateFunc)(const ParticleState&, double, double, const DeltaState&))
-{
-    DeltaState k1 = evaluateFunc(state, time, deltaTime, DeltaState());
-    
-    state.pos = state.pos + deltaTime * k1.vel;
-    state.vel = state.vel + deltaTime * k1.accel;
-}
-
 /**
  * Mid-point integration
  * Given dy/dt = f(t, y(t)) and y(t0) = y0. With a timestep h.
@@ -47,40 +38,6 @@ void Euler(ParticleState &state, double time, double deltaTime,
  * y7 = 29.9208, t7 = 3.5, y7.5 = 37.4010, y8 = 48.6213
  * => y(4) = 48.6213
  **/
-
-void MidPoint(ParticleState &state, double time, double deltaTime,
-              DeltaState (*evaluateFunc)(const ParticleState&, double, double, const DeltaState&))
-{
-    DeltaState k1 = evaluateFunc(state, time, 0.5*deltaTime, DeltaState());
-    
-    state.pos = state.pos + deltaTime * (k1.vel + (deltaTime/2) * k1.vel);
-    state.vel = state.vel + deltaTime * (k1.accel * 1.5);
-}
-
-void Ralston(ParticleState &state,double time, double deltaTime,
-             DeltaState (*evaluateFunc)(const ParticleState&, double, double, const DeltaState&))
-{
-    DeltaState k1, k2;
-    k1 = evaluateFunc(state, time, 0., DeltaState());
-    k2 = evaluateFunc(state, time, (2.0/3.0)*deltaTime, k1);
-    
-    state.pos = state.pos + deltaTime * (0.25 * k1.vel + 0.75 * k2.vel);
-    state.vel = state.vel + deltaTime * (0.25 * k1.accel + 0.75 * k2.accel);
-}
-
-void RK4(ParticleState &state, double time, double deltaTime,
-         DeltaState (*evaluateFunc)(const ParticleState&, double, double, const DeltaState&))
-{
-    DeltaState k1, k2, k3, k4;
-    k1 = evaluateFunc(state, time, 0., DeltaState());
-    k2 = evaluateFunc(state, time, 0.5*deltaTime, k1);
-    k3 = evaluateFunc(state, time, 0.5*deltaTime, k2);
-    k4 = evaluateFunc(state, time, deltaTime, k3);
-    
-    state.pos = state.pos + (deltaTime)/(6.0) * (k1.vel + 2 * (k2.vel + k3.vel) + k4.vel);
-    state.vel = state.vel + (deltaTime)/(6.0) * (k1.accel + 2 * (k2.accel + k3.accel) + k4.accel);
-}
-
 
 /**
  * Explicit Runge-Kutta integration
