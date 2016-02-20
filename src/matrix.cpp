@@ -99,3 +99,33 @@ vector<vector<double>> Invert(vector<vector<double>> &matrix)
     return inverted;
 }
 
+/*
+ * Given a matrix A, and a vector b, solve for x the equation Ax = b.
+ */
+vector<double> Solve(vector<vector<double>> &matrix, vector<double> &vector)
+{
+    // Generate an extended matrix, by adding the vector as a column of the matrix
+    std::vector<std::vector<double>> toSolve;
+    toSolve.resize(matrix.size());
+    for (int row = 0; row < matrix.size(); row++)
+    {
+        toSolve[row].resize(matrix.size() + 1);
+        for (int col = 0; col < toSolve[row].size(); col++)
+        {
+            if (col < matrix.size())
+                toSolve[row][col] = matrix[row][col];
+            else
+                toSolve[row][col] = vector[row];
+        }
+    }
+    // Perform row reduction to solve, and extract the last column as the solution
+    RowReduce(toSolve);
+    std::vector<double> result;
+    result.resize(matrix.size());
+    for (int row = 0; row < matrix.size(); row++)
+        result[row] = toSolve[row][matrix.size()];
+    
+
+    return result;
+    
+}
