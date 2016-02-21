@@ -122,17 +122,17 @@ int RowReductionTest()
     matrixA[2][5] = 1;
     
     matrixB[0][0] = 2;
-    matrixB[0][1] = 1;
-    matrixB[0][2] = -1;
-    matrixB[1][0] = -3;
-    matrixB[1][1] = -1;
-    matrixB[1][2] = 2;
-    matrixB[2][0] = -2;
+    matrixB[0][1] = 0;
+    matrixB[0][2] = 2;
+    matrixB[1][0] = 2;
+    matrixB[1][1] = 0;
+    matrixB[1][2] = 1;
+    matrixB[2][0] = 1;
     matrixB[2][1] = 1;
-    matrixB[2][2] = 2;
-    vectorB[0] = 8;
-    vectorB[1] = -11;
-    vectorB[2] = -3;
+    matrixB[2][2] = 1;
+    vectorB[0] = -1;
+    vectorB[1] = -1;
+    vectorB[2] = -1;
    
     
     std::vector<double> vectorX = Solve(matrixB, vectorB);
@@ -157,15 +157,33 @@ double func(double x)
     return x * x * x - cos(x);
 }
 
+std::vector<double> func2(std::vector<double> f)
+{
+    std::vector<double> ff(f.size());
+    ff[0] = f[0]*f[0] + f[1]*f[1] + f[2]*f[2] - 3;
+    ff[1] = f[0]*f[0] + f[1]*f[1] - f[2] - 1;
+    ff[2] = f[0] + f[1] + f[2] - 3;
+    return ff;
+}
+
 void NewtonTesting()
 {
-    double solved =  NewtonsRaphson(func, 0.5);
-    cout << 10 << ", " << solved << "\n";
+    //double solved =  NewtonRaphson(func, 0.5);
+    //cout << 10 << ", " << solved << "\n";
+    std::vector<double> vals = {1, 0, 1};
+    std::vector<double> deltas = {1e-6, 1e-6, 1e-6};
+    //std::vector<std::vector<double>> jacobian = Jacobian(func2, vals, deltas);
+    
+    std::vector<double> intialGuess = {1.5,0.5,1.5};
+    std::vector<double> solution = NewtonRaphson(func2, intialGuess);
+    for (auto i: solution)
+        cout << i << ", ";
+    cout << "\n";
 }
 
 int main()
 {
-    RowReductionTest();
+    NewtonTesting();
     return 0;
 }
 
