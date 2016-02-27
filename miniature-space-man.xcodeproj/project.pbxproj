@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		3B4F12C51C811DB200FD2873 /* DESIGN.md in Sources */ = {isa = PBXBuildFile; fileRef = 3B4F12C41C811DB200FD2873 /* DESIGN.md */; };
 		3BBE50EA1C6F2B55006E324D /* integrate.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3BBE50E91C6F2B55006E324D /* integrate.cpp */; };
 		3BBE50F01C6F33C8006E324D /* main.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3BBE50EF1C6F33C8006E324D /* main.cpp */; };
 		3BBE50F41C6F3428006E324D /* data.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3BBE50F21C6F3428006E324D /* data.cpp */; };
@@ -27,6 +28,7 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		3B4F12C41C811DB200FD2873 /* DESIGN.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; name = DESIGN.md; path = doc/DESIGN.md; sourceTree = "<group>"; };
 		3BBE50E91C6F2B55006E324D /* integrate.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = integrate.cpp; sourceTree = "<group>"; };
 		3BBE50EC1C6F2BE9006E324D /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
 		3BBE50EE1C6F3389006E324D /* miniature-space-man */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = "miniature-space-man"; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -51,9 +53,18 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		3B4F12C31C811D7D00FD2873 /* doc */ = {
+			isa = PBXGroup;
+			children = (
+				3B4F12C41C811DB200FD2873 /* DESIGN.md */,
+			);
+			name = doc;
+			sourceTree = "<group>";
+		};
 		3BBE50D51C6F2AE3006E324D = {
 			isa = PBXGroup;
 			children = (
+				3B4F12C31C811D7D00FD2873 /* doc */,
 				3BBE50EC1C6F2BE9006E324D /* README.md */,
 				3BBE50EF1C6F33C8006E324D /* main.cpp */,
 				3BBE50E81C6F2B55006E324D /* src */,
@@ -132,6 +143,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				3B4F12C51C811DB200FD2873 /* DESIGN.md in Sources */,
 				C3FC29281C790E0500F8F64F /* solver.cpp in Sources */,
 				3BBE50EA1C6F2B55006E324D /* integrate.cpp in Sources */,
 				3BBE50F01C6F33C8006E324D /* main.cpp in Sources */,
