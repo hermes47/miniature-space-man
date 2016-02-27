@@ -7,12 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		3B4F12C51C811DB200FD2873 /* DESIGN.md in Sources */ = {isa = PBXBuildFile; fileRef = 3B4F12C41C811DB200FD2873 /* DESIGN.md */; };
-		3BBE50EA1C6F2B55006E324D /* integrate.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3BBE50E91C6F2B55006E324D /* integrate.cpp */; };
-		3BBE50F01C6F33C8006E324D /* main.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3BBE50EF1C6F33C8006E324D /* main.cpp */; };
-		3BBE50F41C6F3428006E324D /* data.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3BBE50F21C6F3428006E324D /* data.cpp */; };
-		C3FC29251C76BB2000F8F64F /* matrix.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C3FC29231C76BB2000F8F64F /* matrix.cpp */; };
-		C3FC29281C790E0500F8F64F /* solver.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C3FC29261C790E0500F8F64F /* solver.cpp */; };
+		3B4F12C81C81373E00FD2873 /* testmain.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3B4F12C71C81373E00FD2873 /* testmain.cpp */; };
+		3B4F12CC1C81382600FD2873 /* CelestialBody.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3B4F12CA1C81382600FD2873 /* CelestialBody.cpp */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -29,6 +25,9 @@
 
 /* Begin PBXFileReference section */
 		3B4F12C41C811DB200FD2873 /* DESIGN.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; name = DESIGN.md; path = doc/DESIGN.md; sourceTree = "<group>"; };
+		3B4F12C71C81373E00FD2873 /* testmain.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = testmain.cpp; path = source/testmain.cpp; sourceTree = "<group>"; };
+		3B4F12CA1C81382600FD2873 /* CelestialBody.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = CelestialBody.cpp; path = source/src/CelestialBody.cpp; sourceTree = "<group>"; };
+		3B4F12CB1C81382600FD2873 /* CelestialBody.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = CelestialBody.hpp; path = source/src/CelestialBody.hpp; sourceTree = "<group>"; };
 		3BBE50E91C6F2B55006E324D /* integrate.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = integrate.cpp; sourceTree = "<group>"; };
 		3BBE50EC1C6F2BE9006E324D /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
 		3BBE50EE1C6F3389006E324D /* miniature-space-man */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = "miniature-space-man"; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -61,9 +60,28 @@
 			name = doc;
 			sourceTree = "<group>";
 		};
+		3B4F12C61C8135AB00FD2873 /* source */ = {
+			isa = PBXGroup;
+			children = (
+				3B4F12C71C81373E00FD2873 /* testmain.cpp */,
+				3B4F12C91C81380300FD2873 /* src */,
+			);
+			name = source;
+			sourceTree = "<group>";
+		};
+		3B4F12C91C81380300FD2873 /* src */ = {
+			isa = PBXGroup;
+			children = (
+				3B4F12CA1C81382600FD2873 /* CelestialBody.cpp */,
+				3B4F12CB1C81382600FD2873 /* CelestialBody.hpp */,
+			);
+			name = src;
+			sourceTree = "<group>";
+		};
 		3BBE50D51C6F2AE3006E324D = {
 			isa = PBXGroup;
 			children = (
+				3B4F12C61C8135AB00FD2873 /* source */,
 				3B4F12C31C811D7D00FD2873 /* doc */,
 				3BBE50EC1C6F2BE9006E324D /* README.md */,
 				3BBE50EF1C6F33C8006E324D /* main.cpp */,
@@ -143,12 +161,8 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				3B4F12C51C811DB200FD2873 /* DESIGN.md in Sources */,
-				C3FC29281C790E0500F8F64F /* solver.cpp in Sources */,
-				3BBE50EA1C6F2B55006E324D /* integrate.cpp in Sources */,
-				3BBE50F01C6F33C8006E324D /* main.cpp in Sources */,
-				C3FC29251C76BB2000F8F64F /* matrix.cpp in Sources */,
-				3BBE50F41C6F3428006E324D /* data.cpp in Sources */,
+				3B4F12CC1C81382600FD2873 /* CelestialBody.cpp in Sources */,
+				3B4F12C81C81373E00FD2873 /* testmain.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
