@@ -6,3 +6,9 @@ The aim of this project is to create a graphical planetarium that displays a sim
 
 ## Program Flow
 From clicking on the application icon to launch the program:
+- A splash screen will show that shows the loading progress of the application.
+- At the main menu, there will be drop down menus for selecting the system to show and the level of accuracy to use to simulate it.
+- The background of the main menu will be a display of a random system, running at a resonably large timestep. It will be using either 2-body mechanics, or a higher level optimisation, but not full N-body. Save that for watching in game. It will also switch to a different random system every 90 seconds. There may be some panning and such going on with it.
+- Clicking launch will switch the display to the simulation of the system. There will be controls for the time step, and a hidable menu to choose the integration scheme to use, as well as the level of detail.
+- On screen controls will enable panning, zooming and translating the view.
+- Planets/objects will be modlled as spheres, with a texture applied.
